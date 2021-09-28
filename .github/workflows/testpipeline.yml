@@ -1,0 +1,21 @@
+name: Test and upload .jar-file
+
+on: push
+
+jobs:
+ testinguploading:
+  runs-on: ubuntu-latest
+  name: Testing and uploading job
+  steps:
+   - uses: actions/checkout@v2
+   - uses: actions/setup-java@v2
+     with:
+      java-version: '11'
+   - name: Build, test, and package app
+     run: mvn -f pom.xml package
+   - name: Show contents of current directory
+     run: ls -la
+   - uses: actions/upload-artifact@v2
+     with:
+      name: zipwithjar
+      path: ./target/spring-github-actios-demo-0.1.jar
